@@ -28,6 +28,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends Activity {
     //JSONParser jParser = new JSONParser();
@@ -38,6 +41,9 @@ public class MainActivity extends Activity {
     private RecyclerView.LayoutManager layoutManager;
 
     private String[] myDataset;
+
+    private List<Person> persons;
+    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,7 @@ public class MainActivity extends Activity {
         final EditText e1 = findViewById(R.id.edit);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+      /*  recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -70,7 +76,11 @@ public class MainActivity extends Activity {
         myDataset[0] = "abc";
         myDataset[1] = "pqr";
         mAdapter = new MyAdapter(myDataset);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);*/
+
+
+        //super.onCreate(savedInstanceState);
+
 
 
 
@@ -136,6 +146,15 @@ public class MainActivity extends Activity {
                         Log.i("MyData", no1.getString("job_description"));
                         Log.d("-----------------------","------------------------------");
                         //Log.d(name,responseStrBuilder.toString());
+
+                        setContentView(R.layout.recyclerview_activity);
+                        rv=(RecyclerView)findViewById(R.id.rv);
+                        LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
+                        rv.setLayoutManager(llm);
+                        rv.setHasFixedSize(true);
+
+                        initializeData();
+                        initializeAdapter();
                     }catch (Exception e){
                         //editText2.setText("No Data Present");
                         //button1.setVisibility(View.INVISIBLE);
@@ -177,6 +196,19 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void initializeData(){
+        persons = new ArrayList<>();
+        persons.add(new Person("Emma Wilson", "23 years old", R.drawable.bqe));
+        persons.add(new Person("Lavery Maiss", "25 years old", R.drawable.del));
+        persons.add(new Person("Lillie Watts", "35 years old", R.drawable.liquid));
+    }
+
+    private void initializeAdapter(){
+        RVAdapter adapter = new RVAdapter(persons);
+        rv.setAdapter(adapter);
     }
 }
 
