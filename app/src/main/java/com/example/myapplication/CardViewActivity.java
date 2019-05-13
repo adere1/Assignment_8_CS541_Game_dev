@@ -20,8 +20,5 @@ public class CardViewActivity extends Activity {
         personAge = (TextView)findViewById(R.id.person_age);
         personPhoto = (ImageView)findViewById(R.id.person_photo);
 
-       /* personName.setText("Emma Wilson");
-        personAge.setText("23 years old");
-        personPhoto.setImageResource(R.drawable.papr1);*/
     }
 }

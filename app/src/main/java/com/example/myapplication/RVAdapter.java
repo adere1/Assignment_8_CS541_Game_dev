@@ -6,12 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
+
+
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
 
@@ -22,6 +25,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         TextView appdate;
         TextView followdate;
         ImageView personPhoto;
+
 
         PersonViewHolder(View itemView) {
             super(itemView);
@@ -34,7 +38,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
 
         }
+
     }
+
 
     List<Person> persons;
 
@@ -84,4 +90,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
     public int getItemCount() {
         return persons.size();
     }
+
+
 }

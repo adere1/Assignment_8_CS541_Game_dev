@@ -5,15 +5,16 @@
     >
 
     <!--Button
-        android:layout_width="match_parent"
-        android:layout_height="300px"
-        android:id="@+id/add"
-        android:text="Add New"
+        android:layout_width="50px"
+        android:layout_height="50px"
+        android:id="@+id/back"
+        android:text=""
         android:layout_alignParentTop="true"
+        android:background="@drawable/back"
         /-->
 
     <android.support.v7.widget.RecyclerView
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/rv"
         android:layout_below="@+id/delete"

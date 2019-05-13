@@ -67,14 +67,23 @@ public class MainActivity extends Activity {
         final EditText e5 = findViewById(R.id.applicationdate);
         final EditText e6 = findViewById(R.id.followupdate);
 
+
         //final EditText e1 = findViewById(R.id.edit);
 
 
-      /*  recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        /*recyclerView = findViewById(R.id.my_recycler_view);
+        final Button b3 = recyclerView.findViewById(R.id.back);
+
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_main);
+            }
+        });*/
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
+        /*recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
