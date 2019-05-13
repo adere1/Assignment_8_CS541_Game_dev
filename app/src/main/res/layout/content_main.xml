@@ -29,12 +29,12 @@
         android:textStyle="bold"
         android:layout_marginTop="300px"
         app:fontFamily="sans-serif-condensed-light"
-        app:layout_constraintBottom_toBottomOf="@+id/edit"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@id/textView2" />
 
-    <EditText
+    <!--EditText
         android:id="@+id/edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         app:layout_constraintLeft_toRightOf = "parent"
         app:layout_constraintRight_toLeftOf = "parent"
         tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="411dp" />
+        tools:layout_editor_absoluteY="411dp" /-->
 
     <Button
         android:id="@+id/button"
@@ -57,7 +57,7 @@
 
         android:text="Enter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/edit"
+        app:layout_constraintTop_toTopOf="@id/textView3"
         app:layout_constraintLeft_toRightOf = "parent"
         app:layout_constraintRight_toLeftOf = "parent"
          />
@@ -71,6 +71,98 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf = "parent"
+        app:layout_constraintRight_toLeftOf = "parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
+        android:id="@+id/addlayout"
+        android:background="@android:color/white"
+        >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add"
+        android:src="@drawable/add"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addnew"
+        android:text="Add New"
+        android:layout_toRightOf="@+id/add"
+        android:layout_alignParentTop="true"
+        android:textSize="30sp"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cname"
+        android:text="Enter Comapny Name"
+        android:layout_toRightOf="@+id/add"
+        android:layout_below="@+id/addnew"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/position"
+        android:text="Enter Role"
+        android:layout_toRightOf="@+id/add"
+        android:layout_below="@+id/cname"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/applicationdate"
+        android:text="Enter Application Date"
+        android:layout_toRightOf="@+id/add"
+        android:layout_below="@+id/position"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/followupdate"
+        android:layout_toRightOf="@+id/add"
+        android:text="Enter follow Up date"
+        android:layout_below="@+id/applicationdate"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/save"
+        android:text="Save"
+        android:layout_toRightOf="@+id/add"
+        android:layout_below="@+id/followupdate"
+        />
+
+
+    </RelativeLayout>
+
+    <!--Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view"
+        android:text="View"
+        android:layout_toRightOf="@+id/add"
+        android:layout_below="@+id/followupdate"
+        /-->
 
 
 </android.support.constraint.ConstraintLayout>

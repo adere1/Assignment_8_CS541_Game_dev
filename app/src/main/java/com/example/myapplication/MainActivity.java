@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -56,9 +57,16 @@ public class MainActivity extends Activity {
 
 
         final Button b = findViewById(R.id.button);
+        final Button b1 = findViewById(R.id.save);
         final TextView  t1 = findViewById(R.id.textView2);
         final TextView t2 = findViewById(R.id.textView3);
-        final EditText e1 = findViewById(R.id.edit);
+        final RelativeLayout r = findViewById(R.id.addlayout);
+        final EditText e3 = findViewById(R.id.cname);
+        final EditText e4 = findViewById(R.id.position);
+        final EditText e5 = findViewById(R.id.applicationdate);
+        final EditText e6 = findViewById(R.id.followupdate);
+
+        //final EditText e1 = findViewById(R.id.edit);
 
 
       /*  recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -92,13 +100,63 @@ public class MainActivity extends Activity {
             }
         });
 
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                URL currentUrl = null;
+                try {
+                    currentUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+
+                }
+                HttpURLConnection urlConnection = null;
+                InputStream in;
+                BufferedReader streamReader = null;
+                StringBuilder responseStrBuilder = new StringBuilder();
+                String inputStr;
+                try {
+                    urlConnection = (HttpURLConnection) currentUrl.openConnection();
+                    String data = URLEncoder.encode("cname", "UTF-8")
+                            + "=" + URLEncoder.encode(e3.getText().toString(), "UTF-8");
+
+                    data += "&" + URLEncoder.encode("position", "UTF-8") + "="
+                            + URLEncoder.encode(e4.getText().toString(), "UTF-8");
+
+                    data += "&" + URLEncoder.encode("applicationdate", "UTF-8") + "="
+                            + URLEncoder.encode(e5.getText().toString(), "UTF-8");
+
+                    data += "&" + URLEncoder.encode("followupdate", "UTF-8") + "="
+                            + URLEncoder.encode(e6.getText().toString(), "UTF-8");
+
+                    data += "&" + URLEncoder.encode("getreq", "UTF-8") + "="
+                            + URLEncoder.encode("false", "UTF-8");
+
+                    urlConnection.setDoOutput(true);
+
+                    OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
+                    wr.write(data);
+                    wr.flush();
+                }catch(Exception e){
+                    Log.e("log_tag", "Error in http connection "+e.toString());
+
+                }
+
+            }
+        });
+
+
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 t1.setVisibility(View.INVISIBLE);
                 t2.setVisibility(View.INVISIBLE);
                 b.setVisibility(View.INVISIBLE);
-                e1.setVisibility(View.INVISIBLE);
+                r.setVisibility(View.VISIBLE);
+
+               // e1.setVisibility(View.INVISIBLE);
 
 
 
@@ -141,19 +199,37 @@ public class MainActivity extends Activity {
                         String abc = responseStrBuilder.toString().substring("Aditya".length() + 1, length);
                         JSONObject no = new JSONObject(abc);
 
-                        JSONObject no1 = new JSONObject(no.getString("0"));
-                        //editText2.setText(no1.getString("notedata"));
-                        Log.i("MyData", no1.getString("job_description"));
-                        Log.d("-----------------------","------------------------------");
-                        //Log.d(name,responseStrBuilder.toString());
+                        //Log.d("--------------",responseStrBuilder.toString()+"");
 
-                        setContentView(R.layout.recyclerview_activity);
+
+                        //editText2.setText(no1.getString("notedata"));
+                        //Log.i("MyData", no1.getString("job_description"));
+                        //Log.d("-----------------------","------------------------------");
+
+                        /*for(int i =0;i<no.length();i++) {
+                            Log.i("Dtaa", no.getString(String.valueOf(i)));
+                        }*/
+                        //Log.d(name,responseStrBuilder.toString());
+                        //Log.d("-----------------------","------------------------------");
+                        persons = new ArrayList<>();
+                       for(int i=0;i<4;i++) {
+                           JSONObject no1 = new JSONObject(no.getString(String.valueOf(i)));
+
+                           persons.add(new Person(no1.getString("cname"), no1.getString("job_description"), R.drawable.job, no1.getString("status"), no1.getString("app_date"),no1.getString("follow_up")));
+                       }
+                        /*setContentView(R.layout.recyclerview_activity);
                         rv=(RecyclerView)findViewById(R.id.rv);
                         LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
                         rv.setLayoutManager(llm);
                         rv.setHasFixedSize(true);
+                        */
+                        //initializeData();
 
-                        initializeData();
+
+                        //persons.add(new Person("Lavery Maiss", "25 years old", R.drawable.del));
+                        //persons.add(new Person("Lillie Watts", "35 years old", R.drawable.liquid));
+
+
                         initializeAdapter();
                     }catch (Exception e){
                         //editText2.setText("No Data Present");
@@ -199,12 +275,12 @@ public class MainActivity extends Activity {
     }
 
 
-    private void initializeData(){
+   /* private void initializeData(){
         persons = new ArrayList<>();
         persons.add(new Person("Emma Wilson", "23 years old", R.drawable.bqe));
         persons.add(new Person("Lavery Maiss", "25 years old", R.drawable.del));
         persons.add(new Person("Lillie Watts", "35 years old", R.drawable.liquid));
-    }
+    }*/
 
     private void initializeAdapter(){
         RVAdapter adapter = new RVAdapter(persons);

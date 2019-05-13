@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/cv"
+
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
+
         >
 
         <ImageView
@@ -37,19 +39,41 @@
             android:layout_toRightOf="@+id/person_photo"
             android:layout_below="@+id/person_name"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/status"
+            android:layout_toRightOf="@+id/person_photo"
+            android:layout_below="@+id/person_age"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/appdate"
+            android:layout_toRightOf="@+id/person_photo"
+            android:layout_below="@+id/status"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/followdate"
+            android:layout_toRightOf="@+id/person_photo"
+            android:layout_below="@+id/appdate"
+            />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/update"
             android:text="Update"
-            android:layout_below="@+id/person_age"
+            android:layout_below="@+id/followdate"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/delete"
             android:text="Delete"
-            android:layout_below="@+id/person_age"
+            android:layout_below="@+id/followdate"
             android:layout_toRightOf="@+id/update"
             />
 
