@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
 
         final Button b = findViewById(R.id.button);
         final Button b1 = findViewById(R.id.save);
+        final Button b2 = findViewById(R.id.view);
         final TextView  t1 = findViewById(R.id.textView2);
         final TextView t2 = findViewById(R.id.textView3);
         final RelativeLayout r = findViewById(R.id.addlayout);
@@ -100,6 +101,93 @@ public class MainActivity extends Activity {
             }
         });
 
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                URL currentUrl = null;
+                try {
+                    currentUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+
+                }
+                HttpURLConnection urlConnection = null;
+                InputStream in;
+                BufferedReader streamReader = null;
+                StringBuilder responseStrBuilder = new StringBuilder();
+                String inputStr;
+                try {
+
+                    //String name = editText.getText().toString();
+                    urlConnection = (HttpURLConnection) currentUrl.openConnection();
+                    /*String data = URLEncoder.encode("name", "UTF-8")
+                            + "=" + URLEncoder.encode("Aditya", "UTF-8");*/
+
+                    String data = URLEncoder.encode("getreq", "UTF-8") + "="
+                            + URLEncoder.encode("true", "UTF-8");
+                    urlConnection.setDoOutput(true);
+
+                    OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
+                    Log.d("-----","-----------------------------------------");
+                    wr.write(data);
+                    wr.flush();
+                    in = new BufferedInputStream(urlConnection.getInputStream());
+                    streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                    while ((inputStr = streamReader.readLine()) != null) {
+                        responseStrBuilder.append(inputStr);
+                    }
+                    //editText2.setText(responseStrBuilder.toString().split(name)[1]);
+                    try {
+                        int length = responseStrBuilder.toString().length();
+                        Log.d("--------------",responseStrBuilder.toString()+"");
+                        String abc = responseStrBuilder.toString().substring("Aditya".length() + 1, length);
+                        JSONObject no = new JSONObject(responseStrBuilder.toString());
+
+
+
+
+                        //editText2.setText(no1.getString("notedata"));
+                        //Log.i("MyData", no1.getString("job_description"));
+                        //Log.d("-----------------------","------------------------------");
+
+                        /*for(int i =0;i<no.length();i++) {
+                            Log.i("Dtaa", no.getString(String.valueOf(i)));
+                        }*/
+                        Log.d("--------------",no.length()+"");
+                        //Log.d("-----------------------","------------------------------");
+                        persons = new ArrayList<>();
+                        for(int i=0;i<no.length()-1;i++) {
+                            JSONObject no1 = new JSONObject(no.getString(String.valueOf(i)));
+
+                            persons.add(new Person(no1.getString("cname"), no1.getString("job_description"), R.drawable.job, no1.getString("status"), no1.getString("app_date"),no1.getString("follow_up")));
+                        }
+                        setContentView(R.layout.recyclerview_activity);
+                        rv=(RecyclerView)findViewById(R.id.rv);
+                        LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
+                        rv.setLayoutManager(llm);
+                        rv.setHasFixedSize(true);
+
+                        //initializeData();
+
+
+                        //persons.add(new Person("Lavery Maiss", "25 years old", R.drawable.del));
+                        //persons.add(new Person("Lillie Watts", "35 years old", R.drawable.liquid));
+
+
+                        initializeAdapter();
+                    }catch (Exception e){
+                        //editText2.setText("No Data Present");
+                        //button1.setVisibility(View.INVISIBLE);
+                        Log.d("-----------------------","------------------------------");
+                    }
+
+
+                }catch(Exception e){
+                    Log.e("log_tag", "Error in http connection "+e.toString());
+                    //Toast.makeText(getApplicationContext(), "Connection fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+         });
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +204,13 @@ public class MainActivity extends Activity {
                 BufferedReader streamReader = null;
                 StringBuilder responseStrBuilder = new StringBuilder();
                 String inputStr;
+                Log.d("------------","-------------------------");
                 try {
+                    Log.d("e3.getText().toString()",e3.getText().toString());
+                    Log.d("e4.getText().toString()",e4.getText().toString());
+                    Log.d("e5.getText().toString()",e5.getText().toString());
+                    Log.d("e6.getText().toString()",e6.getText().toString());
+
                     urlConnection = (HttpURLConnection) currentUrl.openConnection();
                     String data = URLEncoder.encode("cname", "UTF-8")
                             + "=" + URLEncoder.encode(e3.getText().toString(), "UTF-8");
@@ -138,6 +232,17 @@ public class MainActivity extends Activity {
                     OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
                     wr.write(data);
                     wr.flush();
+                    Log.d("------------","-------------------------");
+                    in = new BufferedInputStream(urlConnection.getInputStream());
+                    streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                    while ((inputStr = streamReader.readLine()) != null) {
+                        responseStrBuilder.append(inputStr);
+                    }
+
+                    int length = responseStrBuilder.toString().length();
+                    //String abc = responseStrBuilder.toString().substring("Aditya".length() + 1, length);
+                    //JSONObject no = new JSONObject(abc);
+                    Log.d("no",responseStrBuilder.toString()+"-----------");
                 }catch(Exception e){
                     Log.e("log_tag", "Error in http connection "+e.toString());
 
@@ -155,94 +260,9 @@ public class MainActivity extends Activity {
                 t2.setVisibility(View.INVISIBLE);
                 b.setVisibility(View.INVISIBLE);
                 r.setVisibility(View.VISIBLE);
+                b2.setVisibility(View.VISIBLE);
 
                // e1.setVisibility(View.INVISIBLE);
-
-
-
-
-                URL currentUrl = null;
-                try {
-                    currentUrl = new URL(url);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-
-                }
-                HttpURLConnection urlConnection = null;
-                InputStream in;
-                BufferedReader streamReader = null;
-                StringBuilder responseStrBuilder = new StringBuilder();
-                String inputStr;
-                try {
-
-                    //String name = editText.getText().toString();
-                    urlConnection = (HttpURLConnection) currentUrl.openConnection();
-                    String data = URLEncoder.encode("name", "UTF-8")
-                            + "=" + URLEncoder.encode("Aditya", "UTF-8");
-
-                    data += "&" + URLEncoder.encode("getreq", "UTF-8") + "="
-                            + URLEncoder.encode("true", "UTF-8");
-                    urlConnection.setDoOutput(true);
-
-                    OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
-                    Log.d("-----","-----------------------------------------");
-                    wr.write(data);
-                    wr.flush();
-                    in = new BufferedInputStream(urlConnection.getInputStream());
-                    streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-                    while ((inputStr = streamReader.readLine()) != null) {
-                        responseStrBuilder.append(inputStr);
-                    }
-                    //editText2.setText(responseStrBuilder.toString().split(name)[1]);
-                    try {
-                        int length = responseStrBuilder.toString().length();
-                        String abc = responseStrBuilder.toString().substring("Aditya".length() + 1, length);
-                        JSONObject no = new JSONObject(abc);
-
-                        //Log.d("--------------",responseStrBuilder.toString()+"");
-
-
-                        //editText2.setText(no1.getString("notedata"));
-                        //Log.i("MyData", no1.getString("job_description"));
-                        //Log.d("-----------------------","------------------------------");
-
-                        /*for(int i =0;i<no.length();i++) {
-                            Log.i("Dtaa", no.getString(String.valueOf(i)));
-                        }*/
-                        //Log.d(name,responseStrBuilder.toString());
-                        //Log.d("-----------------------","------------------------------");
-                        persons = new ArrayList<>();
-                       for(int i=0;i<4;i++) {
-                           JSONObject no1 = new JSONObject(no.getString(String.valueOf(i)));
-
-                           persons.add(new Person(no1.getString("cname"), no1.getString("job_description"), R.drawable.job, no1.getString("status"), no1.getString("app_date"),no1.getString("follow_up")));
-                       }
-                        /*setContentView(R.layout.recyclerview_activity);
-                        rv=(RecyclerView)findViewById(R.id.rv);
-                        LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
-                        rv.setLayoutManager(llm);
-                        rv.setHasFixedSize(true);
-                        */
-                        //initializeData();
-
-
-                        //persons.add(new Person("Lavery Maiss", "25 years old", R.drawable.del));
-                        //persons.add(new Person("Lillie Watts", "35 years old", R.drawable.liquid));
-
-
-                        initializeAdapter();
-                    }catch (Exception e){
-                        //editText2.setText("No Data Present");
-                        //button1.setVisibility(View.INVISIBLE);
-                        Log.d("-----------------------","------------------------------");
-                    }
-
-
-                }catch(Exception e){
-                    Log.e("log_tag", "Error in http connection "+e.toString());
-                    //Toast.makeText(getApplicationContext(), "Connection fail", Toast.LENGTH_SHORT).show();
-                }
-
 
 
 
